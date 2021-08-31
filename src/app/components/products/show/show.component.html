@@ -1,0 +1,190 @@
+<!--Botones-->
+<section id="actions" class="py-4 mb-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <button
+          type="button"
+          class="btn btn-primary btn-block"
+          data-toggle="modal"
+          data-target="#createProduct"
+          (click)="addClick()"
+          data-backdrop="static"
+          data-keyboard="false"
+        >
+          <i class="fas fa-sign-in-alt"></i> Entrada del producto
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Lista-->
+<section id="products">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="card-header text-center">
+            <h4>Listado de productos</h4>
+          </div>
+          <table class="table table-stripped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Fecha Ingreso</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of ProductList">
+                <td>{{ product.ProductNombre }}</td>
+                <td>{{ product.ProductEstado }}</td>
+                <td>{{ product.ProductFechaIngreso }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    data-toggle="modal"
+                    data-target="#updateProduct"
+                    data-backdrop="static"
+                    data-keyboard="false"
+                    (click)="editClick(product)"
+                  >
+                    <i class="fas fa-edit"></i> Editar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="deleteClick(product)"
+                    data-toggle="modal"
+                    data-target="#deleteProduct"
+                    data-backdrop="static"
+                    data-keyboard="false"
+                  >
+                    <i class="fas fa-sign-out-alt"></i> Salida
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center bg-success text-white mb-3">
+          <div class="card-body">
+            <h3>Total Productos</h3>
+            <h4 class="display-4">
+              <i class="fas fa-users"></i> {{ ProductList?.length }}
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Modales-->
+<!-- <div class="modal fade in" id="createProduct" aria-hidden="false" ng-show="isPopupVisible">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closePopup()">&times;</button>
+        <h3>Hola</h3>
+      </div>
+      <div class="modal-body">Body</div>
+      <div class="modal-footer">Footer</div>
+    </div>
+  </div>
+</div> -->
+
+<div
+  class="modal fade"
+  id="createProduct"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="exampleModalLabel">{{ ModalTitle }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeClick()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <flash-messages></flash-messages>
+      <div class="modal-body">
+        <app-add [pd]="pd" *ngIf="ActivateAddProduct"> </app-add>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="updateProduct"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="exampleModalLabel">{{ ModalTitle }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeClick()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <flash-messages></flash-messages>
+      <div class="modal-body">
+        <app-update [pd]="pd" *ngIf="ActivateUpdateProduct"> </app-update>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="deleteProduct"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="exampleModalLabel">{{ ModalTitle }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeClick()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <flash-messages></flash-messages>
+      <div class="modal-body">
+        <app-delete [pd]="pd" *ngIf="ActivateDeleteProduct"> </app-delete>
+      </div>
+    </div>
+  </div>
+</div>
